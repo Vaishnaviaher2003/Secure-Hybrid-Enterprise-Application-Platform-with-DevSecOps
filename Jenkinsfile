@@ -23,7 +23,7 @@ pipeline {
             steps {
                 // This stops any old container and starts the new one on port 8080
                 sh 'docker rm -f my-container || true'
-                sh 'docker run -d --name my-container -p 8080:80 my-devsecops-app'
+                sh 'docker run -d --name my-container -p 9000:80 my-devsecops-app'
                 echo 'Application is now running!'
             }
         }
