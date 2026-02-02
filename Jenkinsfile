@@ -25,5 +25,6 @@ pipeline {
                 sh 'trivy image --severity CRITICAL --exit-code 1 vaishu09/secure-hybrid:v1'
             }
         }
-
+    }
+}
         
