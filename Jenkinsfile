@@ -26,23 +26,4 @@ pipeline {
             }
         }
 
-        stage('Push to Docker Hub') {
-            steps {
-                // Ensure you have added 'docker_hub_creds' in Jenkins Credentials
-                withCredentials([usernamePassword(credentialsId: 'docker_hub_creds', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
-                    sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
-                    sh 'docker push vaishu09/secure-hybrid:v1'
-                }
-            }
-        }
-
-        stage('Deploy to K8s') {
-            steps {
-                // This triggers the deployment on VM3
-                // Ensure Jenkins has 'kubectl' configured or uses SSH to VM3
-                sh 'kubectl apply -f deployment.yaml'
-                echo 'Application deployed to Kubernetes!'
-            }
-        }
-    }
-}
+        
