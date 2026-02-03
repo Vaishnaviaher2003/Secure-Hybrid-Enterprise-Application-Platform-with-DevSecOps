@@ -53,7 +53,7 @@ pipeline {
             steps {
                 echo 'Deploying to Kubernetes on VM3...'
                 // Applies your YAML (Ensure this file is in your GitHub repo)
-                sh 'kubectl apply -f project/project-deploy.yaml'
+                sh 'kubectl apply -f /home/shuhari/project/project-deploy.yaml'
                 
                 // Forces K8s to pull the fresh image we just pushed to the Hub
                 sh 'kubectl rollout restart deployment/secure-app-deployment'
