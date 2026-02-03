@@ -30,7 +30,9 @@ pipeline {
             steps {
                 echo 'Starting Security Scan with Trivy...'
                 // --exit-code 1 ensures the pipeline FAILS if a CRITICAL bug is found
-                sh "trivy image --severity CRITICAL --exit-code 1 ${DOCKER_REPO}:${IMAGE_TAG}"
+                sh "trivy image --severity CRITICAL --exit-code 1 --timeout 15m ${DOCKER_REPO}:${IMAGE_TAG}"
+
+
             }
         }
 
