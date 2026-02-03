@@ -48,13 +48,20 @@ pipeline {
             }
         }
 
-        stage('Deploy App') {
-    steps {
-        echo 'Deploying as a Docker Container on VM2...'
-        sh "docker stop secure-app || true && docker rm secure-app || true"
-        sh "docker run -d --name secure-app -p 8081:80 vaishu09/secure-hybrid:v1"
+        // Stage 5: Remote Deploy to K8s on VM3
+        stage('Deploy to K8s') {
+            steps {
+                echo 'Deploying to Kubernetes on VM3...'
+                // Applies your YAML (Ensure this file is in your GitHub repo)
+                sh 'kubectl apply -f project/project-deploy.yaml'
+                
+                // Forces K8s to pull the fresh image we just pushed to the Hub
+                sh 'kubectl rollout restart deployment/secure-app-deployment'
+                
+                echo 'Deployment Complete!'
+            }
+        }
     }
-}
 
     // Post-build actions for reporting
     post {
